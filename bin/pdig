@@ -1,6 +1,46 @@
 #!/bin/bash
-EXPOSE_PORT=443
+#
+# Copyright (C) 2019 The Falco Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+#
+#
+# Common directories for the project
+#
+FALCO_TRACE_BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+FALCO_DIR=${FALCO_TRACE_BIN_DIR}/../falco
+SYSDIG_DIR=${FALCO_TRACE_BIN_DIR}/../sysdig
+PDIG_DIR=${FALCO_TRACE_BIN_DIR}/../pdig
+
+#
+# #The port that we can "hack" into our fargate task with
+#
+# Use nc -nv <ip> <port> to access a remote shell
+#
+NCAT_EXPOSE_PORT=${NCAT_EXPOSE_PORT:-443}
+
+
+function exec_pdig() {
+  //
+}
+
+function exec_falco() {
+
+}
+
+exit 1
 while :
 do
    ncat -nvlp ${EXPOSE_PORT} -e /bin/bash
+   if [ $? -ne 0 ]; then
+      printf "Error with ncat. Sleeping...\n"
+      sleep 3
+   fi
 done

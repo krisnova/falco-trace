@@ -12,29 +12,27 @@
 # specific language governing permissions and limitations under the License.
 #
 #
-# The main logic for Nóva's bash hackery for her Falco + Fargate demos
-
-
-# The port that we can "hack" into our fargate task with
+# Common directories for the project
 #
-# Use nc -nv <ip> <port> to access a remote shell
-#
+FALCO_TRACE_BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+FALCO_DIR=${FALCO_TRACE_BIN_DIR}/../falco
+SYSDIG_DIR=${FALCO_TRACE_BIN_DIR}/../sysdig
+PDIG_DIR=${FALCO_TRACE_BIN_DIR}/../pdig
 
-CLEAN=${CLEAN:-false}
-
-cd falco/build
-FALCO_BUILD=$(pwd)
-
-if [[ "$CLEAN" ]]; then
-    echo "Cleaning falco/build"
-    rm -rf *
-fi
+CORES=48
 
 
+mkdir -p $FALCO_DIR/build
+cd $FALCO_DIR/build
+make clean
 cmake ../ \
       -DBUILD_BPF=OFF \
       -DBUILD_WARNINGS_AS_ERRORS="OFF" \
       -DCMAKE_BUILD_TYPE="Release" \
       -DCMAKE_INSTALL_PREFIX="/usr" \
-      -DFALCO_ETC_DIR="/etc/falco" \
-      -DUSE_BUNDLED_DEPS=ON
+      -DFALCO_ETC_DIR="/etc/falco"
+
+make all -j${CORES}
+if [ $? -ne 0 ]; then
+ echo "FAILURE: Unable to compile Falco"
+fi
