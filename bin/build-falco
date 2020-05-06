@@ -21,10 +21,27 @@ PDIG_DIR=${FALCO_TRACE_BIN_DIR}/../pdig
 
 CORES=48
 
+#
+# Install Packages for Falco
+#
+apt-get update
+apt-get install -y --no-install-recommends \
+	ncat \
+	make \
+	cmake \
+	gcc \
+	clang \
+	apt-utils \
+	jq
 
+jq
+
+exit 1
+
+# Reset the cache and clean every stinkin time
+rm -rf $FALCO_DIR/build
 mkdir -p $FALCO_DIR/build
 cd $FALCO_DIR/build
-make clean
 cmake ../ \
       -DBUILD_BPF=OFF \
       -DBUILD_WARNINGS_AS_ERRORS="OFF" \
@@ -36,3 +53,6 @@ make all -j${CORES}
 if [ $? -ne 0 ]; then
  echo "FAILURE: Unable to compile Falco"
 fi
+make clean
+
+# TODO Logic for installing falco in container
