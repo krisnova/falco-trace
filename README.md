@@ -20,7 +20,7 @@ In one terminal run the following to start the `bin/server` process with `pdig`.
 
 ```
 docker run -it -p 443:443 krisnova/falco-trace:latest /bin/bash
-pdig -a "PORT=443 /falco-trace/bin/server"
+PORT=443 pdig -a "/falco-trace/bin/server"
 falco -u -c /etc/falco/falco.yaml --pidfile /var/run/falco
 ```
 
