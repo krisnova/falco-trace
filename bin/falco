@@ -19,5 +19,32 @@ FALCO_DIR=${FALCO_TRACE_BIN_DIR}/../falco
 SYSDIG_DIR=${FALCO_TRACE_BIN_DIR}/../sysdig
 PDIG_DIR=${FALCO_TRACE_BIN_DIR}/../pdig
 
+##
+# There is a small server that can be used for
+# demos to "hack" into the running instance.
+#
+# Set the port and uncomment this if you want
+# to use the server.
+#
+# You can connect with nc -nv <ip> <port>
+# and run commands like ls, cat, rm but in
+# a synthetic remote shell.
+#
+#
+# [ WARNING ]
+# DO NOT RUN THIS IN PRODUCTION
+# [ WARNING ]
+#
+#PORT=443 pdig -a $FALCO_TRACE_BIN_DIR/server &
 
-falco
+##
+# Run Falco in userspace mode
+#
+falco -u --pidfile /var/run/falco.pid --daemon
+
+
+##
+# Uncomment this if you wish to see the Falco logs
+# in CloudWatch or with Kubernetes log
+# This just cleans up the output to STDOUT.
+#tail -f /var/log/falco.log
