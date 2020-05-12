@@ -37,6 +37,9 @@ docker built -t yourorg/falco-trace:latest .
 docker push yourorg/falco-trace:latest
 ```
 
+
+---
+
 ## Running an application with falco-trace in Kubernetes, Fargate, ECS, etc
 
 Create a Dockerfile using `falco-trace` and start your app using pdig
