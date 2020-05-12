@@ -36,3 +36,18 @@ ncat -nv 127.0.0.1 443
 docker built -t yourorg/falco-trace:latest .
 docker push yourorg/falco-trace:latest
 ```
+
+## Running your application 
+
+Create a Dockerfile using `falco-trace` and start your app using pdig
+
+```
+FROM krisnova/falco-trace:latest
+CMD ["pdig", "-a", "./myapp"]
+```
+
+Then you can run your container image in a containerized management tooling of your choice.
+
+You will NOT have to load a kernel module.
+You will NOT have to load a BPF probe.
+You will have falco running as it runs now.
