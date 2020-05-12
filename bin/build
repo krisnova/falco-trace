@@ -18,6 +18,27 @@ FALCO_TRACE_BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 &&
 FALCO_DIR=${FALCO_TRACE_BIN_DIR}/../falco
 SYSDIG_DIR=${FALCO_TRACE_BIN_DIR}/../sysdig
 PDIG_DIR=${FALCO_TRACE_BIN_DIR}/../pdig
+ETC=${FALCO_TRACE_BIN_DIR}/../etc
 
+# ----------------------------------------------------------------------------------------------------
+# [ INSTALL FALCO ]
+#
+cd $FALCO_DIR
+wget https://1760-49986046-gh.circle-artifacts.com/0/packages/falco-0.22.1-32%2Be81e2f9-x86_64.tar.gz
+tar -xzffalco-0.22.1-32+e81e2f9-x86_64.tar.gz
+cd falco-0.22.1-32+e81e2f9-x86_64
+cp -rv etc/falco /etc/falco
+cp -v $ETC/falco/falco.yaml /etc/falco/falco.yaml
+cp -rv usr/bin/falco /usr/bin/falco
+cp -rv usr/share/falco /usr/share/falco
 
-falco
+# ----------------------------------------------------------------------------------------------------
+# [ INSTALL PDIG ]
+#
+cd $PDIG_DIR
+rm -rf build # Wipe build for a clean install every time
+mkdir build
+cd build
+cmake ../
+make
+cp pdig /usr/bin/pdig
