@@ -17,5 +17,5 @@ docker push $REGISTRY/$NAME_BASE:latest
 
 build-push example-apps/VulnerableServer/ "vulnerableserver"
 build-push example-apps/SSH/ "ssh"
-build-push example-apps/BenchmarkFalcoNginx/ "benchmarkfalconginx"
+build-push example-apps/BenchmarksFalcoNginx/ "benchmarksfalconginx"
 
