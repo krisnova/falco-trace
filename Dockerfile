@@ -11,4 +11,5 @@ RUN apt-get update \
     libyaml-0-2 \
     ca-certificates
 RUN /falco-trace/bin/build
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 CMD ["/falco-trace/bin/falco"]

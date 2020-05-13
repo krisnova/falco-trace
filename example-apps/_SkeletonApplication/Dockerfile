@@ -1,3 +1,3 @@
 FROM krisnova/falco-trace:latest
-COPY .. .
+COPY . .
 CMD ["pdig", "-a", "./init.sh"]
