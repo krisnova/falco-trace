@@ -75,9 +75,13 @@ You need to create a container associated with your task. This is like how a Kub
 Here we define the workload at the container level.
 
 Container name: `falco-trace-vulnerableserver`
+
 Image:          `registry.hub.docker.com/krisnova/falco-trace-vulnerableserver:latest`
+
 Port Mappings:  `443 tcp`
+
 Command:        ` ` # You can override the falco-trace containers if needed, but for this example leave this blank
+
 Logs: 		`check Auto-configure CloudWatch logs if you want Falco logs plumed to CloudWatch` # Note: You can setup splunk or other logging backends if you want.
 
 Leave everything else blank and save and exit back to the Task Definition screen
@@ -203,8 +207,11 @@ Note: This is important to get right or Falco will not work!
 First select your cluster (third field) otherwise the UI will reset if you try to do this later. 
 
 Launch Type:     `Fargate`
+
 Platform:        `1.4.0` or greater
+
 Service Name:    `falco-trace-vulnerableserver`
+
 Number of tasks: `1`
 
 Leave everything else alone and click `Next Step`
@@ -212,8 +219,11 @@ Leave everything else alone and click `Next Step`
 SCROLL UP! You have to scroll up to the top of the page now.
 
 Cluster VPC:    `Just pick one you would like to use`
+
 Subnets:        `Whatever you want, we will be poking a hole in the Security Group later`
+
 Security Group: `Please practice good administrative discipline here. Open TCP 443 on CIDR X.X.X.X/32 for your public IP. curl ifconfig.me`
+
 LoadBalancer:   `None`
 
 Leave everything else blank and click `Next Step`
