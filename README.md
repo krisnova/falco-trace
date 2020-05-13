@@ -48,9 +48,7 @@ registry.hub.docker.com/krisnova/falco-trace-ssh:latest
 
 ## Vulnerable Server Application
 
-In the `example-apps` directory there are some fun ways to use this technology.
-In this example we simulate "hacking" into a production application running a
-web server.
+You can run the [vulnerable server image](https://github.com/kris-nova/falco-trace/tree/master/example-apps/VulnerableServer) to run a vulnerable web server that can give you a remote shell and simulate a hacker. 
 
 ```
 docker run -p 443:443 krisnova/falco-trace-vulnerableserver:latest 
@@ -62,16 +60,17 @@ In another shell you can "hack" into the server using the following command
 ncat -nv 127.0.0.1 443
 ```
 
-In fargate just use the following container image.
+In fargate just use the following container image, and use the public IP
 
 ```
 registry.hub.docker.com/krisnova/falco-trace-vulnerableserver:latest
 ```
 
+
 ## Building the container image
 
 ```
-docker built -t yourorg/falco-trace:latest .
+docker build -t yourorg/falco-trace:latest .
 docker push yourorg/falco-trace:latest
 ```
 
@@ -297,7 +296,7 @@ touch /etc/3
 
 Feel free to play around and see what Falco has to say about it.
 
-#### Falco logs in cloud watch
+#### Falco logs in Cloud Watch
 
 On the same page where you found the public IP of your task, you can view the logs.
 
