@@ -25,7 +25,28 @@ pdig -a /bin/bash
 cat /var/log/falco.log
 ```
 
-# Vulnerable Server Application
+## SSH
+
+You can run [the SSH image](https://github.com/kris-nova/falco-trace/tree/master/example-apps/SSH) for easy backend access to a container via SSH.
+
+```
+docker run -p 1313:22 krisnova/falco-trace-ssh:latest
+```
+
+Then from another shell
+
+```
+ssh root@127.0.0.1 -p 1313
+password: falco
+```
+
+In fargate just use the following container image.
+
+```
+registry.hub.docker.com/krisnova/falco-trace-ssh:latest
+```
+
+## Vulnerable Server Application
 
 In the `example-apps` directory there are some fun ways to use this technology.
 In this example we simulate "hacking" into a production application running a
@@ -39,6 +60,12 @@ In another shell you can "hack" into the server using the following command
 
 ```
 ncat -nv 127.0.0.1 443
+```
+
+In fargate just use the following container image.
+
+```
+registry.hub.docker.com/krisnova/falco-trace-vulnerableserver:latest
 ```
 
 ## Building the container image
