@@ -25,6 +25,27 @@ pdig -a /bin/bash
 cat /var/log/falco.log
 ```
 
+## Kubernetes
+
+You can run Falco in Kubernetes without needing to privilege escalate or manage a kernel module.
+
+```
+kubectl run falco --image krisnova/falco-trace:latest
+kubectl logs falco -f
+kubectl delete po falco
+```
+
+You can run a vulnerable server in Kubernetes and show Falco working
+
+```
+kubectl run vs --image krisnova/falco-trace-vulnerableserver:latest --expose --port 443
+sudo kubectl port-forward svc vs 443:443
+nc -nv 127.0.0.1 443
+cat /etc/shadow
+exit
+kubectl logs falco -f
+```
+
 ## SSH
 
 You can run [the SSH image](https://github.com/kris-nova/falco-trace/tree/master/example-apps/SSH) for easy backend access to a container via SSH.
