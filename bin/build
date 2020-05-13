@@ -24,8 +24,10 @@ ETC=${FALCO_TRACE_BIN_DIR}/../etc
 # [ INSTALL FALCO ]
 #
 cd $FALCO_DIR
-wget https://1760-49986046-gh.circle-artifacts.com/0/packages/falco-0.22.1-32%2Be81e2f9-x86_64.tar.gz
-tar -xzffalco-0.22.1-32+e81e2f9-x86_64.tar.gz
+# TODO @kris-nova have this pull from master once my PR is merged
+# TODO @kris-nova also use the official tarballs once this makes a release so we enable cert checking
+wget --no-check-certificate https://1760-49986046-gh.circle-artifacts.com/0/packages/falco-0.22.1-32%2Be81e2f9-x86_64.tar.gz
+tar -xzf falco-0.22.1-32+e81e2f9-x86_64.tar.gz
 cd falco-0.22.1-32+e81e2f9-x86_64
 cp -rv etc/falco /etc/falco
 cp -v $ETC/falco/falco.yaml /etc/falco/falco.yaml
