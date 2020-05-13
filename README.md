@@ -87,9 +87,13 @@ FROM krisnova/falco-trace:latest
 CMD ["pdig", "-a", "./init.sh"]
 ```
 
+---
+
 ## AWS ECS/Fargate
 
 This has been tested and is working in AWS Fargate. Set up a Fargate cluster, this part was easy and [the docs](https://docs.aws.amazon.com/AmazonECS/latest/userguide/ECS_AWSCLI_Fargate.html#ECS_AWSCLI_Fargate_create_cluster) were helpful for me.
+
+Below is a tutorial on running the `falco-trace-vulnerableserver` image in AWS ECS/Fargate and exploiting the image to have Falco alert you in CloudWatch.
 
 #### Create a Task Definition
 
