@@ -14,7 +14,7 @@ the following way.
 
 ## Running bash with Falco and pdig in a container
 
-```
+```bash
 docker run -it -p 443:443 krisnova/falco-trace:latest /bin/bash
 falco -u --pidfile /var/run/falco.pid --daemon
 pdig -a /bin/bash
@@ -29,7 +29,7 @@ cat /var/log/falco.log
 
 You can run Falco in Kubernetes without needing to privilege escalate or manage a kernel module.
 
-```
+```bash
 kubectl run falco --image krisnova/falco-trace:latest
 kubectl logs falco -f
 kubectl delete po falco
@@ -37,7 +37,7 @@ kubectl delete po falco
 
 You can run a vulnerable server in Kubernetes and show Falco working
 
-```
+```bash
 kubectl run vs --image krisnova/falco-trace-vulnerableserver:latest --expose --port 443
 sudo kubectl port-forward svc vs 443:443
 nc -nv 127.0.0.1 443
@@ -50,20 +50,20 @@ kubectl logs falco -f
 
 You can run [the SSH image](https://github.com/kris-nova/falco-trace/tree/master/example-apps/SSH) for easy backend access to a container via SSH.
 
-```
+```bash
 docker run -p 1313:22 krisnova/falco-trace-ssh:latest
 ```
 
 Then from another shell
 
-```
+```bash
 ssh root@127.0.0.1 -p 1313
 password: falco
 ```
 
 In fargate just use the following container image.
 
-```
+```bash
 registry.hub.docker.com/krisnova/falco-trace-ssh:latest
 ```
 
@@ -71,26 +71,26 @@ registry.hub.docker.com/krisnova/falco-trace-ssh:latest
 
 You can run the [vulnerable server image](https://github.com/kris-nova/falco-trace/tree/master/example-apps/VulnerableServer) to run a vulnerable web server that can give you a remote shell and simulate a hacker. 
 
-```
+```bash
 docker run -p 443:443 krisnova/falco-trace-vulnerableserver:latest 
 ```
 
 In another shell you can "hack" into the server using the following command
 
-```
+```bash
 ncat -nv 127.0.0.1 443
 ```
 
 In fargate just use the following container image, and use the public IP
 
-```
+```bash
 registry.hub.docker.com/krisnova/falco-trace-vulnerableserver:latest
 ```
 
 
 ## Building the container image
 
-```
+```bash
 docker build -t yourorg/falco-trace:latest .
 docker push yourorg/falco-trace:latest
 ```
@@ -102,7 +102,7 @@ docker push yourorg/falco-trace:latest
 There is a `example-apps/SkeletonApplication` example that has more documentation and you can clone
 that directory to get started with Falco and `pdig`
 
-```
+```bash
 FROM krisnova/falco-trace:latest
 CMD ["pdig", "-a", "./init.sh"]
 ```
@@ -157,7 +157,7 @@ Paste the following `linuxParameters` block into your JSON
 
 The full output of mine looks like this
 
-<details>
+```json
 {
     "ipcMode": null,
     "executionRoleArn": "arn:aws:iam::059797578166:role/ecsTaskExecutionRole",
@@ -245,9 +245,9 @@ The full output of mine looks like this
     "volumes": [],
     "tags": []
 }
-</details>
+```
 
-click create.
+Then click create.
 
 #### Create Service
 
@@ -292,7 +292,7 @@ Click on your running task to find it's public IP address.
 
 You can now "hack" into your application using the following command
 
-```
+```bash
 ncat -nv <PUBLIC_IP> <443>
 ```
 
@@ -300,7 +300,7 @@ You should now have a remote shell in ECS and from here you can get up to plenty
 
 Here are some handy commands that will trigger Falco alerts and warnings you can issue to make sure everything is working.
 
-```
+```bash
 # Touching files in known executable directories
 touch /usr/bin/1
 touch /usr/bin/2
