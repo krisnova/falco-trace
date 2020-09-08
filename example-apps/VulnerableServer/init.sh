@@ -46,6 +46,7 @@ PORT=${PORT:-443}
 # DO NOT RUN THIS IN PRODUCTION
 # [ WARNING ]
 #
+printf "Starting VulnerableServer in ${PORT}" 
 while :
 do
    ncat -nvlp ${PORT} -e /bin/bash
